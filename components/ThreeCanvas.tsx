@@ -4,8 +4,6 @@ import { FC, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { Environment } from "@/utils/three/environment";
 
-// TODO
-
 interface Props {
     init: (environment: Environment) => void;
     constructor: typeof Environment
