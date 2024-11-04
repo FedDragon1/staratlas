@@ -4,7 +4,7 @@ import { FC } from "react";
 import { NextSEO } from "@/components/NextSEO";
 import styled from "styled-components"
 import ThreeCanvas from "@/components/ThreeCanvas";
-import { AnimatedEnvironment, Environment, NoisedEnvironment } from "@/utils/three/environment";
+import { Environment, NoisedEnvironment } from "@/utils/three/environment";
 import { Planet } from "@/components/models/planet";
 import { ModelLoader } from "@/utils/three/modelLoader";
 import { gsap } from "gsap"

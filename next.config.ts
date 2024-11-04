@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
                 }
             }
         }
+    },
+    webpack: (config, context) => {
+        config.module.rules.push({
+            test: /\.glsl/,
+            use: [
+                context.defaultLoaders.babel,
+                {
+                    loader: "raw-loader"
+                }
+            ]
+        })
+        return config
     }
 };
 
