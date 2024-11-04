@@ -2,6 +2,8 @@ import * as THREE from "three"
 // @ts-expect-error no module types
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { performanceStats } from "@/utils/three/performance";
+import { BlendFunction, EffectComposer, EffectPass, NoiseEffect, RenderPass } from "postprocessing";
+import { getNoiseBackground } from "@/components/material/noise/noiseMaterial";
 
 const MAX_PX_RATIO = 2
 
@@ -153,6 +155,39 @@ export class AnimatedEnvironment extends Environment {
             cancelAnimationFrame(this.animationFrame)
         }
         this.animationFrame = void 0
+    }
+}
+
+export class NoisedEnvironment extends AnimatedEnvironment {
+    effectComposer: EffectComposer
+    noise: THREE.Mesh
+
+    constructor(rendererParameters: THREE.WebGLRendererParameters) {
+        super(rendererParameters);
+        this.effectComposer = new EffectComposer(this.renderer)
+        this.noise = getNoiseBackground(this.camera)
+    }
+
+    initialize() {
+        super.initialize();
+
+        const renderPass = new RenderPass(this.scene, this.camera)
+        renderPass.renderToScreen = false
+        this.effectComposer.addPass(renderPass)
+
+        const noiseEffect = new NoiseEffect({
+            blendFunction: BlendFunction.HARD_MIX
+        })
+        noiseEffect.blendMode.opacity.value = 0.2
+
+        const standardPass = new EffectPass(this.camera, noiseEffect)
+        this.effectComposer.addPass(standardPass)
+
+        this.addObjects(this.noise)
+    }
+
+    render() {
+        this.effectComposer?.render(this.clock.getDelta())
     }
 }
 

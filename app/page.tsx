@@ -4,7 +4,7 @@ import { FC } from "react";
 import { NextSEO } from "@/components/NextSEO";
 import styled from "styled-components"
 import ThreeCanvas from "@/components/ThreeCanvas";
-import { AnimatedEnvironment, Environment } from "@/utils/three/environment";
+import { AnimatedEnvironment, Environment, NoisedEnvironment } from "@/utils/three/environment";
 import { Planet } from "@/components/models/planet";
 import { ModelLoader } from "@/utils/three/modelLoader";
 import { gsap } from "gsap"
@@ -22,7 +22,7 @@ const Home: FC<HomeProps> = () => {
         <>
             <Container>
                 <NextSEO></NextSEO>
-                <ThreeCanvas init={init} constructor={AnimatedEnvironment}
+                <ThreeCanvas init={init} constructor={NoisedEnvironment}
                              onDestroy={() => destroyHooks.forEach(hook => hook())}/>
             </Container>
             <div id="page-container" className="h-[400vh] w-full relative z-20"/>
@@ -55,7 +55,6 @@ function init(environment: Environment) {
     })
 
     mainTimeline.add(ringAnimations).addLabel("spaceScene")
-
     planet.setAnimation((particle) => {
         particle.position.x = -18;
         particle.position.y = 8;
@@ -95,6 +94,8 @@ function init(environment: Environment) {
 
         mainTimeline.add(timeline, "spaceScene-=0.3")
     })
+
+
 }
 
 function initRings(modelLoader: ModelLoader, environment: Environment) {

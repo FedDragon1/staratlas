@@ -55,8 +55,6 @@ export class DotMaterial extends THREE.ShaderMaterial {
             ...recordToUniformVariables({ ...defaultUniformVariables, ...uniformVariables })
         }
 
-        console.log(mergedUniformVariables)
-
         super({
             vertexShader,
             fragmentShader,
