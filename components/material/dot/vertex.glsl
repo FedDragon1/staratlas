@@ -5,7 +5,7 @@ uniform float fadeDistance;
 uniform float blur;
 uniform float minOpacity;
 uniform float maxOpacity;
-uniform float referenceParticalSize;
+uniform float referenceParticleSize;
 
 attribute float size;
 
@@ -47,6 +47,7 @@ void main() {
     blurScale = 1.0 - varyingOpacity;   // [0, 1]
     blurScale *= 2.0;    // [0, 2] -> 2x size as opacity reaches 0
 
-    gl_PointSize = pixelRatio * (size * referenceParticalSize + blurScale * blur);
+    gl_PointSize = pixelRatio * (size * referenceParticleSize + blurScale * blur);
     gl_Position = projectionMatrix * viewPosition;
+
 }

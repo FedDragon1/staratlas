@@ -4,10 +4,10 @@ import { ModelLoader } from "@/utils/three/modelLoader";
 import { Environment } from "@/utils/three/environment";
 import { DotMaterial } from "@/components/material/dot/dotMaterial";
 
-export class Planet extends PointsModel {
+export class Station extends PointsModel {
     loadModel(modelLoader: ModelLoader, environment: Environment) {
         modelLoader
-            .loadDrc("/models/planet.drc")
+            .loadDrc("/models/station.drc")
             .then((geometry) => {
                 geometry.center().rotateY(1.2)
                 this.particle = new THREE.Points<THREE.BufferGeometry, THREE.ShaderMaterial>(
@@ -16,11 +16,12 @@ export class Planet extends PointsModel {
                         false,
                         environment.renderer.getPixelRatio(),
                         {
-                            near: 17,
-                            far: -15,
-                            fadeDistance: 4,
-                            blur: 3,
-                            referenceParticleSize: 3
+                            near: 20,
+                            far: -30,
+                            fadeDistance: 0,
+                            blur: 0,
+                            minOpacity: 0,
+                            maxOpacity: 0,
                         }
                     )
                 )
